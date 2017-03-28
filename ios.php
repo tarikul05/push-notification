@@ -34,19 +34,14 @@
 		'data' => $data['data'],
 	);
 
-	// Encode the payload as JSON
 	$payload = json_encode($body);
-
-	// Build the binary notification
 	if (is_array($deviceToken)) {
 		foreach ($deviceToken as $key => $token) {
 			$msg = chr(0) . pack('n', 32) . pack('H*', $token) . pack('n', strlen($payload)) . $payload;
 			$result = fwrite($fp, $msg, strlen($msg));
 		}
 	}else{
-		// Build the binary notification
 		$msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
-		// Send it to the server
 		$result = fwrite($fp, $msg, strlen($msg));
 	}
 	fclose($fp);
