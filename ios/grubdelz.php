@@ -33,11 +33,10 @@ function iOS($data, $deviceToken, $pass = 'grubdealz17') {
 }
 
 if (isset($_POST['submit'])) {
-	// print_r($_POST); die();
 	$title = $_POST['title'];
 	$description = $_POST['description'];
-	$tokens = $_POST['token']; //explode(',', $_POST['token']);
-	// $tokens = '6a5a261a7e20bf9801f878f6dc91c0fd807183555cbaa7bc360adb634b573cf8';
+	$tokens = explode(',', $_POST['token']);
+
 	$paramData = [];
 	foreach ($_POST['param'] as $key => $value) {
 		if (!empty($value['key'])) {
@@ -50,8 +49,7 @@ if (isset($_POST['submit'])) {
 	            'desc' => $description,
 	            'data' => $paramData
 	        );	
-
-	// var_dump($data); die();                
+              
 	$flag = iOS($data, $tokens);
 }
 
